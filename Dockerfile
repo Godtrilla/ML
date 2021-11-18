@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 RUN pip3 install jupyter
-
+RUN rm requirements.txt
 WORKDIR /ML
 COPY . /ML
 
@@ -23,6 +23,7 @@ USER appuser
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["jupyter", "notebook", "--port=8080", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
 
-# EXPOSE 8080
+RUN rm Dockerfile
+EXPOSE 8080
 
 # docker run -p 8080:8080 9aad6956690c /ML/ml_notebook
